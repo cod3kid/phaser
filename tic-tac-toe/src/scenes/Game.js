@@ -34,17 +34,12 @@ export class Game extends Scene {
     const squareSize = 128;
 
     for (let i = 1; i <= 9; i++) {
-      this.add
-        .rectangle(
-          x + (i % 3) * (squareSize + 5),
-          y,
-          squareSize,
-          squareSize,
-          0x8accff
-        )
-        .setOrigin(0);
+      this.add.rectangle(x, y, squareSize, squareSize, 0x8accff).setOrigin(0);
+
+      x += squareSize + 5;
 
       if (i % 3 === 0) {
+        x = 300;
         y += squareSize + 5;
       }
     }
