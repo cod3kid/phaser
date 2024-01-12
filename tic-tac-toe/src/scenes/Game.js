@@ -1,10 +1,17 @@
 import { Scene } from "phaser";
+import {
+  markingStyle,
+  playerAMarkingStyle,
+  playerBMarkingStyle,
+} from "../utils/constants";
 
 export class Game extends Scene {
   constructor() {
     super("Game");
 
     this.titleText;
+    this.isPlayerATurn = true;
+    this.allCells = [];
   }
 
   init() {
@@ -29,17 +36,33 @@ export class Game extends Scene {
   }
 
   createBoard() {
-    let x = 300;
+    let x = 360;
     let y = 200;
     const squareSize = 128;
 
-    for (let i = 1; i <= 9; i++) {
-      this.add.rectangle(x, y, squareSize, squareSize, 0x8accff).setOrigin(0);
+    for (let i = 0; i < 9; i++) {
+      const currentCell = this.add
+        .rectangle(x, y, squareSize, squareSize, 0x8accff)
+        .setInteractive()
+        .on(Phaser.Input.Events.POINTER_DOWN, () => {
+          this.add
+            .text(
+              this.allCells[i].x,
+              this.allCells[i].y,
+              this.isPlayerATurn ? "X" : "O",
+              this.isPlayerATurn ? playerAMarkingStyle : playerBMarkingStyle
+            )
+            .setOrigin(0.5);
+
+          this.isPlayerATurn = !this.isPlayerATurn;
+        });
+
+      this.allCells.push(currentCell);
 
       x += squareSize + 5;
 
-      if (i % 3 === 0) {
-        x = 300;
+      if ((i + 1) % 3 === 0) {
+        x = 360;
         y += squareSize + 5;
       }
     }
