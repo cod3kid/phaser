@@ -12,6 +12,8 @@ export class Game extends Scene {
     this.titleText;
     this.isPlayerATurn = true;
     this.allCells = [];
+    this.playerA = [];
+    this.playerB = [];
   }
 
   init() {
@@ -45,13 +47,22 @@ export class Game extends Scene {
         .rectangle(x, y, squareSize, squareSize, 0x8accff)
         .setInteractive()
         .on(Phaser.Input.Events.POINTER_DOWN, () => {
+          let marking, style;
+
+          if (this.playerA.includes(i) || this.playerB.includes(i)) return;
+
+          if (this.isPlayerATurn) {
+            marking = "X";
+            style = playerAMarkingStyle;
+            this.playerA.push(i);
+          } else {
+            marking = "O";
+            style = playerBMarkingStyle;
+            this.playerB.push(i);
+          }
+
           this.add
-            .text(
-              this.allCells[i].x,
-              this.allCells[i].y,
-              this.isPlayerATurn ? "X" : "O",
-              this.isPlayerATurn ? playerAMarkingStyle : playerBMarkingStyle
-            )
+            .text(this.allCells[i].x, this.allCells[i].y, marking, style)
             .setOrigin(0.5);
 
           this.isPlayerATurn = !this.isPlayerATurn;

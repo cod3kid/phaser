@@ -1,5 +1,5 @@
 const markingStyle = {
-  fontSize: "34px",
+  fontSize: "42px",
   fontFamily: "Arial",
 };
 
