@@ -15,22 +15,18 @@ export class Game extends Scene {
       const row = Math.floor((63 - i) / 8) + 1;
 
       if (row % 2 === 0) {
-        const currentCell = this.add.rectangle(
-          x,
-          y,
-          squareSize,
-          squareSize,
-          i % 2 === 0 ? 0xffffff : 0x000000
-        );
+        squareColor = i % 2 === 0 ? 0xebe2c2 : 0xb15a29;
       } else {
-        const currentCell = this.add.rectangle(
-          x,
-          y,
-          squareSize,
-          squareSize,
-          i % 2 === 0 ? 0x000000 : 0xffffff
-        );
+        squareColor = i % 2 === 0 ? 0xb15a29 : 0xebe2c2;
       }
+
+      const currentCell = this.add.rectangle(
+        x,
+        y,
+        squareSize,
+        squareSize,
+        squareColor
+      );
 
       x += squareSize + 5;
 
