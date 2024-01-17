@@ -38,7 +38,12 @@ export class Game extends Scene {
           .image(cell.x, cell.y, piece)
           .setScale(0.1)
           .setName(piece)
+          .setInteractive({ draggable: true })
           .setDepth(3);
+
+        placedPiece.on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
+          placedPiece.setPosition(dragX, dragY);
+        });
       }
 
       x += squareSize + 5;
