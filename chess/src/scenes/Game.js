@@ -48,6 +48,10 @@ export class Game extends Scene {
           .setInteractive({ draggable: true })
           .setDepth(3);
 
+        if (i >= 48) {
+          placedPiece.setTintFill(0xffffff);
+        }
+
         placedPiece
           .on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
             placedPiece.setPosition(dragX, dragY);
