@@ -4,6 +4,8 @@ import { pieces } from "../utils/constant";
 export class Game extends Scene {
   constructor() {
     super("Game");
+
+    this.allCells = [];
   }
 
   create() {
@@ -33,6 +35,11 @@ export class Game extends Scene {
         squareColor
       );
 
+      this.add
+        .zone(cell.x, cell.y, squareSize, squareSize)
+        .setName("cell" + i)
+        .setRectangleDropZone(squareSize, squareSize);
+
       if (piece != "") {
         const placedPiece = this.add
           .image(cell.x, cell.y, piece)
@@ -41,10 +48,19 @@ export class Game extends Scene {
           .setInteractive({ draggable: true })
           .setDepth(3);
 
-        placedPiece.on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
-          placedPiece.setPosition(dragX, dragY);
-        });
+        placedPiece
+          .on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
+            placedPiece.setPosition(dragX, dragY);
+          })
+          .on(Phaser.Input.Events.DROP, (pointer, dropZone) => {
+            const dropZoneName = dropZone.name;
+            const dropZoneId = dropZoneName.slice(4);
+            const droppedCell = this.allCells[dropZoneId];
+            placedPiece.setPosition(droppedCell.x, droppedCell.y);
+          });
       }
+
+      this.allCells.push(cell);
 
       x += squareSize + 5;
 
