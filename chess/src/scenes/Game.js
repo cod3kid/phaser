@@ -1,15 +1,24 @@
 import { Scene } from "phaser";
-import { pieces } from "../utils/constant";
+import { pieces, playerTurnTextStyle } from "../utils/constant";
 
 export class Game extends Scene {
   constructor() {
     super("Game");
 
+    this.canvasWidth;
+    this.canvasHeight;
     this.allCells = [];
+    this.playerTurn = "white";
+  }
+
+  init() {
+    this.canvasWidth = this.scale.width;
+    this.canvasHeight = this.scale.height;
   }
 
   create() {
     this.createBoard();
+    this.createPlayerTurnText();
   }
 
   createBoard() {
@@ -73,5 +82,16 @@ export class Game extends Scene {
         y += squareSize + 5;
       }
     });
+  }
+
+  createPlayerTurnText() {
+    this.playerTurn = this.add
+      .text(
+        this.canvasWidth / 2,
+        this.canvasHeight - 50,
+        "It is " + this.playerTurn + "'s turn.",
+        playerTurnTextStyle
+      )
+      .setOrigin(0.5);
   }
 }

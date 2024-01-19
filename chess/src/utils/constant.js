@@ -64,3 +64,9 @@ export const pieces = [
   "knight",
   "rook",
 ];
+
+export const playerTurnTextStyle = {
+  color: "black",
+  fontSize: "24px",
+  fontFamily: "Arial",
+};
