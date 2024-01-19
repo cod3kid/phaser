@@ -7,6 +7,7 @@ export class Game extends Scene {
 
     this.canvasWidth;
     this.canvasHeight;
+    this.playerTurnText;
     this.allCells = [];
     this.playerTurn = "white";
   }
@@ -70,6 +71,7 @@ export class Game extends Scene {
             const dropZoneId = dropZoneName.slice(4);
             const droppedCell = this.allCells[dropZoneId];
             placedPiece.setPosition(droppedCell.x, droppedCell.y);
+            this.changePlayerTurnText();
           });
       }
 
@@ -85,7 +87,7 @@ export class Game extends Scene {
   }
 
   createPlayerTurnText() {
-    this.playerTurn = this.add
+    this.playerTurnText = this.add
       .text(
         this.canvasWidth / 2,
         this.canvasHeight - 50,
@@ -93,5 +95,15 @@ export class Game extends Scene {
         playerTurnTextStyle
       )
       .setOrigin(0.5);
+  }
+
+  changePlayerTurnText() {
+    if (this.playerTurn === "white") {
+      this.playerTurn = "black";
+    } else {
+      this.playerTurn = "white";
+    }
+
+    this.playerTurnText.setText("It is " + this.playerTurn + "'s turn.");
   }
 }
