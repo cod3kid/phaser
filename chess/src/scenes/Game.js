@@ -59,14 +59,21 @@ export class Game extends Scene {
           .setDepth(3);
 
         if (i >= 48) {
-          placedPiece.setTintFill(0xffffff);
+          placedPiece.setTintFill(0xffffff).setData("color", "white");
+        } else {
+          placedPiece.setData("color", "black");
         }
 
         placedPiece
           .on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
+            console.log(placedPiece.getData("color"));
+            if (placedPiece.getData("color") !== this.playerTurn) return;
+
             placedPiece.setPosition(dragX, dragY);
           })
           .on(Phaser.Input.Events.DROP, (pointer, dropZone) => {
+            if (placedPiece.getData("color") !== this.playerTurn) return;
+
             const dropZoneName = dropZone.name;
             const dropZoneId = dropZoneName.slice(4);
             const droppedCell = this.allCells[dropZoneId];
