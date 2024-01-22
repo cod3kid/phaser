@@ -9,6 +9,7 @@ export class Game extends Scene {
     this.canvasHeight;
     this.playerTurnText;
     this.allCells = [];
+    this.allPieces = [];
     this.playerTurn = "white";
   }
 
@@ -51,7 +52,7 @@ export class Game extends Scene {
         .setRectangleDropZone(squareSize, squareSize);
 
       if (piece != "") {
-        const placedPiece = this.add
+        const placedPiece = this.physics.add
           .image(cell.x, cell.y, piece)
           .setScale(0.1)
           .setName(piece)
@@ -78,8 +79,20 @@ export class Game extends Scene {
             const dropZoneId = dropZoneName.slice(4);
             const droppedCell = this.allCells[dropZoneId];
             placedPiece.setPosition(droppedCell.x, droppedCell.y);
+
+            // Check if it's overlapping
+            let removeIdx;
+            this.allPieces.forEach((item, index) => {
+              if (this.physics.overlap(placedPiece, item)) {
+                item?.destroy();
+                removeIdx = index;
+              }
+            });
+
+            this.allPieces.splice(removeIdx, 1);
             this.changePlayerTurnText();
           });
+        this.allPieces.push(placedPiece);
       }
 
       this.allCells.push(cell);
