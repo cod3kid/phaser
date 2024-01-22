@@ -55,6 +55,7 @@ export class Game extends Scene {
         const placedPiece = this.physics.add
           .image(cell.x, cell.y, piece)
           .setScale(0.1)
+          .setData({ prevX: cell.x, prevY: cell.y })
           .setName(piece)
           .setInteractive({ draggable: true })
           .setDepth(3);
@@ -67,7 +68,6 @@ export class Game extends Scene {
 
         placedPiece
           .on(Phaser.Input.Events.DRAG, (pointer, dragX, dragY) => {
-            console.log(placedPiece.getData("color"));
             if (placedPiece.getData("color") !== this.playerTurn) return;
 
             placedPiece.setPosition(dragX, dragY);
@@ -76,9 +76,46 @@ export class Game extends Scene {
             if (placedPiece.getData("color") !== this.playerTurn) return;
 
             const dropZoneName = dropZone.name;
-            const dropZoneId = dropZoneName.slice(4);
+            const dropZoneId = parseInt(dropZoneName.slice(4));
             const droppedCell = this.allCells[dropZoneId];
-            placedPiece.setPosition(droppedCell.x, droppedCell.y);
+
+            const pieceName = placedPiece.name;
+            const [prevX, prevY] = placedPiece.getData(["prevX", "prevY"]);
+
+            if (this.playerTurn === "black") {
+              switch (pieceName) {
+                case "pawn":
+                  const starterRow = [8, 9, 10, 11, 12, 13, 14, 15];
+
+                  if (
+                    starterRow.includes(i) &&
+                    ![i + 8, i + 16].includes(dropZoneId)
+                  ) {
+                    placedPiece.setPosition(prevX, prevY);
+                    return;
+                  }
+                  break;
+              }
+            } else {
+              switch (pieceName) {
+                case "pawn":
+                  const starterRow = [49, 50, 51, 52, 53, 54, 55, 56];
+
+                  if (
+                    starterRow.includes(i) &&
+                    ![i - 8, i - 16].includes(dropZoneId)
+                  ) {
+                    placedPiece.setPosition(prevX, prevY);
+                    return;
+                  }
+                  break;
+              }
+            }
+
+            placedPiece
+              .setPosition(droppedCell.x, droppedCell.y)
+              .setData("prevX", droppedCell.x)
+              .setData("prevY", droppedCell.y);
 
             // Check if it's overlapping
             let removeIdx;
