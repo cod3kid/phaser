@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { SECONDARY_COLOR } from "../utils/constant";
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../utils/constant";
 
 export class Game extends Scene {
   constructor() {
@@ -7,6 +7,9 @@ export class Game extends Scene {
 
     this.canvasWidth;
     this.canvasHeight;
+
+    this.gameScreen;
+    this.paddle;
   }
 
   init() {
@@ -16,15 +19,26 @@ export class Game extends Scene {
 
   create() {
     this.createGameScreen();
+    this.createPaddle();
   }
 
   createGameScreen() {
-    this.add.rectangle(
+    this.gameScreen = this.add.rectangle(
       this.canvasWidth / 2,
       this.canvasHeight / 2,
       this.canvasWidth - 100,
       this.canvasHeight - 100,
       SECONDARY_COLOR
+    );
+  }
+
+  createPaddle() {
+    this.paddle = this.add.rectangle(
+      this.canvasWidth / 2,
+      this.canvasHeight - 70,
+      100,
+      20,
+      PRIMARY_COLOR
     );
   }
 }
