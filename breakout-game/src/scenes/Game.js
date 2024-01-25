@@ -10,6 +10,7 @@ export class Game extends Scene {
 
     this.gameScreen;
     this.paddle;
+    this.ball;
   }
 
   init() {
@@ -20,6 +21,7 @@ export class Game extends Scene {
   create() {
     this.createGameScreen();
     this.createPaddle();
+    this.createBall();
   }
 
   createGameScreen() {
@@ -44,5 +46,14 @@ export class Game extends Scene {
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
       this.paddle.setX(pointer.x);
     });
+  }
+
+  createBall() {
+    this.ball = this.add.circle(
+      this.canvasWidth / 2,
+      this.canvasHeight / 2,
+      8,
+      PRIMARY_COLOR
+    );
   }
 }

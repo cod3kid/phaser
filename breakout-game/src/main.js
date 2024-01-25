@@ -14,6 +14,15 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [Preloader, Game],
+  physics: {
+    default: "arcade",
+    arcade: {
+      gravity: {
+        y: 250,
+        x: 0,
+      },
+    },
+  },
 };
 
 export default new Phaser.Game(config);
