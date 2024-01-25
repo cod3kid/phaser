@@ -40,5 +40,9 @@ export class Game extends Scene {
       20,
       PRIMARY_COLOR
     );
+
+    this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
+      this.paddle.setX(pointer.x);
+    });
   }
 }
