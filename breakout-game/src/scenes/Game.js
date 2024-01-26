@@ -55,5 +55,8 @@ export class Game extends Scene {
       8,
       PRIMARY_COLOR
     );
+
+    this.physics.add.existing(this.ball);
+    this.ball.body.setBounce(1);
   }
 }
