@@ -35,7 +35,7 @@ export class Game extends Scene {
   }
 
   createPaddle() {
-    this.paddle = this.add.rectangle(
+    const rectangle = this.add.rectangle(
       this.canvasWidth / 2,
       this.canvasHeight - 70,
       100,
@@ -43,20 +43,26 @@ export class Game extends Scene {
       PRIMARY_COLOR
     );
 
+    this.paddle = this.matter.add
+      .gameObject(rectangle, { shape: "rectangle" })
+      .setBounce(1)
+      .setIgnoreGravity(true);
+
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
       this.paddle.setX(pointer.x);
     });
   }
 
   createBall() {
-    this.ball = this.add.circle(
+    const circle = this.add.circle(
       this.canvasWidth / 2,
       this.canvasHeight / 2,
       8,
       PRIMARY_COLOR
     );
 
-    this.physics.add.existing(this.ball);
-    this.ball.body.setBounce(1);
+    this.ball = this.matter.add
+      .gameObject(circle, { shape: "circle" })
+      .setBounce(1);
   }
 }

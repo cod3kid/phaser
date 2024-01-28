@@ -15,10 +15,10 @@ const config = {
   },
   scene: [Preloader, Game],
   physics: {
-    default: "arcade",
-    arcade: {
+    default: "matter",
+    matter: {
       gravity: {
-        y: 250,
+        y: 2,
         x: 0,
       },
     },
