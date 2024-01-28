@@ -25,7 +25,7 @@ const config = {
         top: true,
         left: true,
         right: true,
-        bottom: true,
+        bottom: false,
       },
     },
   },

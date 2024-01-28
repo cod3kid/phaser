@@ -11,6 +11,7 @@ export class Game extends Scene {
     this.gameScreen;
     this.paddle;
     this.ball;
+    this.isAttachedToPad = true;
   }
 
   init() {
@@ -66,5 +67,14 @@ export class Game extends Scene {
       .setBounce(1)
       .setVelocity(5, 10)
       .setFrictionAir(0);
+
+    // this.matter.body.setInertia(this.ball.body, Infinity);
+  }
+
+  update() {
+    if (this.ball.y > this.canvasHeight - 50) {
+      this.isAttachedToPad = true;
+      this.ball.setPosition(this.paddle.x, this.paddle.y - 20).setVelocity(1);
+    }
   }
 }
