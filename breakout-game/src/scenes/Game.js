@@ -28,8 +28,8 @@ export class Game extends Scene {
     this.gameScreen = this.add.rectangle(
       this.canvasWidth / 2,
       this.canvasHeight / 2,
-      this.canvasWidth - 100,
-      this.canvasHeight - 100,
+      this.canvasWidth,
+      this.canvasHeight,
       SECONDARY_COLOR
     );
   }
@@ -63,6 +63,8 @@ export class Game extends Scene {
 
     this.ball = this.matter.add
       .gameObject(circle, { shape: "circle" })
-      .setBounce(1);
+      .setBounce(1)
+      .setVelocity(5, 10)
+      .setFrictionAir(0);
   }
 }

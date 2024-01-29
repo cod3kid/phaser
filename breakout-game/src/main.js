@@ -18,8 +18,14 @@ const config = {
     default: "matter",
     matter: {
       gravity: {
-        y: 2,
+        y: 0,
         x: 0,
+      },
+      setBounds: {
+        top: true,
+        left: true,
+        right: true,
+        bottom: true,
       },
     },
   },
