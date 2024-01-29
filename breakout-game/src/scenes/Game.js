@@ -36,7 +36,7 @@ export class Game extends Scene {
   }
 
   createPaddle() {
-    const rectangle = this.add.rectangle(
+    this.paddle = this.add.rectangle(
       this.canvasWidth / 2,
       this.canvasHeight - 70,
       100,
@@ -44,10 +44,7 @@ export class Game extends Scene {
       PRIMARY_COLOR
     );
 
-    this.paddle = this.matter.add
-      .gameObject(rectangle, { shape: "rectangle" })
-      .setBounce(1)
-      .setIgnoreGravity(true);
+    this.physics.add.existing(this.paddle);
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
       this.paddle.setX(pointer.x);
@@ -55,26 +52,19 @@ export class Game extends Scene {
   }
 
   createBall() {
-    const circle = this.add.circle(
-      this.canvasWidth / 2,
-      this.canvasHeight / 2,
+    this.ball = this.add.circle(
+      this.paddle.x,
+      this.paddle.y - 30,
       8,
       PRIMARY_COLOR
     );
 
-    this.ball = this.matter.add
-      .gameObject(circle, { shape: "circle" })
-      .setBounce(1)
-      .setVelocity(5, 10)
-      .setFrictionAir(0);
-
-    // this.matter.body.setInertia(this.ball.body, Infinity);
+    this.physics.add.existing(this.ball);
   }
 
   update() {
-    if (this.ball.y > this.canvasHeight - 50) {
-      this.isAttachedToPad = true;
-      this.ball.setPosition(this.paddle.x, this.paddle.y - 20).setVelocity(1);
+    if (this.isAttachedToPad) {
+      this.ball.setX(this.paddle.x);
     }
   }
 }
