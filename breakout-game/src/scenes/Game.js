@@ -36,15 +36,10 @@ export class Game extends Scene {
   }
 
   createPaddle() {
-    this.paddle = this.add.rectangle(
-      this.canvasWidth / 2,
-      this.canvasHeight - 70,
-      100,
-      20,
-      PRIMARY_COLOR
-    );
-
-    this.physics.add.existing(this.paddle);
+    this.paddle = this.physics.add
+      .image(this.canvasWidth / 2, this.canvasHeight - 70, "paddle")
+      .setScale(0.0125)
+      .setTintFill(PRIMARY_COLOR);
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
       this.paddle.setX(pointer.x);
@@ -52,14 +47,17 @@ export class Game extends Scene {
   }
 
   createBall() {
-    this.ball = this.add.circle(
-      this.paddle.x,
-      this.paddle.y - 30,
-      8,
-      PRIMARY_COLOR
-    );
+    this.ball = this.physics.add
+      .image(this.paddle.x, this.paddle.y - 30, "ball")
+      .setScale(0.125)
+      .setTintFill(PRIMARY_COLOR);
 
-    this.physics.add.existing(this.ball);
+    this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
+      if (this.isAttachedToPad) {
+        this.isAttachedToPad = false;
+        this.ball.setVelocity(-75, -400);
+      }
+    });
   }
 
   update() {
