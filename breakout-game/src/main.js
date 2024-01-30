@@ -21,12 +21,6 @@ const config = {
         y: 0,
         x: 0,
       },
-      setBounds: {
-        top: true,
-        left: true,
-        right: true,
-        bottom: false,
-      },
     },
   },
 };

@@ -33,12 +33,14 @@ export class Game extends Scene {
       this.canvasHeight,
       SECONDARY_COLOR
     );
+
+    this.physics.world.setBoundsCollision(true, true, true, false);
   }
 
   createPaddle() {
     this.paddle = this.physics.add
       .image(this.canvasWidth / 2, this.canvasHeight - 70, "paddle")
-      .setScale(0.0125)
+      .setScale(0.015, 0.0125)
       .setTintFill(PRIMARY_COLOR);
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
@@ -50,7 +52,9 @@ export class Game extends Scene {
     this.ball = this.physics.add
       .image(this.paddle.x, this.paddle.y - 30, "ball")
       .setScale(0.125)
-      .setTintFill(PRIMARY_COLOR);
+      .setTintFill(PRIMARY_COLOR)
+      .setCollideWorldBounds(true)
+      .setBounce(1);
 
     this.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer) => {
       if (this.isAttachedToPad) {
