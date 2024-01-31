@@ -23,6 +23,7 @@ export class Game extends Scene {
     this.createGameScreen();
     this.createPaddle();
     this.createBall();
+    this.createPaddleCollider();
   }
 
   createGameScreen() {
@@ -41,7 +42,8 @@ export class Game extends Scene {
     this.paddle = this.physics.add
       .image(this.canvasWidth / 2, this.canvasHeight - 70, "paddle")
       .setScale(0.015, 0.0125)
-      .setTintFill(PRIMARY_COLOR);
+      .setTintFill(PRIMARY_COLOR)
+      .setImmovable();
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
       this.paddle.setX(pointer.x);
@@ -62,6 +64,22 @@ export class Game extends Scene {
         this.ball.setVelocity(-75, -400);
       }
     });
+  }
+
+  createPaddleCollider() {
+    this.physics.add.collider(
+      this.ball,
+      this.paddle,
+      () => {
+        if (this.ball.x > this.paddle.x) {
+          this.ball.setVelocityX(-10 * (this.ball.x - this.paddle.x));
+        } else {
+          this.ball.setVelocityX(-10 * (this.paddle.x - this.ball.x));
+        }
+      },
+      null,
+      this
+    );
   }
 
   update() {
