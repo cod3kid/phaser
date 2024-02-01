@@ -24,6 +24,7 @@ export class Game extends Scene {
     this.createPaddle();
     this.createBall();
     this.createPaddleCollider();
+    this.createBricks();
   }
 
   createGameScreen() {
@@ -80,6 +81,22 @@ export class Game extends Scene {
       null,
       this
     );
+  }
+
+  createBricks() {
+    let x = 250;
+    let y = 50;
+    for (let i = 0; i < 6; i++) {
+      for (let j = 0; j < 6; j++) {
+        this.add.rectangle(x, y, 100, 30, PRIMARY_COLOR);
+
+        x += 110;
+        if (j == 5) {
+          y += 40;
+          x = 250;
+        }
+      }
+    }
   }
 
   update() {
