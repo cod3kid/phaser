@@ -84,16 +84,19 @@ export class Game extends Scene {
   }
 
   createBricks() {
-    let x = 250;
+    let x = 200;
     let y = 50;
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 6; j++) {
-        this.add.rectangle(x, y, 100, 30, PRIMARY_COLOR);
+        this.physics.add
+          .image(x, y, "paddle")
+          .setScale(0.015, 0.0125)
+          .setTintFill(PRIMARY_COLOR);
 
-        x += 110;
+        x += 130;
         if (j == 5) {
           y += 40;
-          x = 250;
+          x = 200;
         }
       }
     }
