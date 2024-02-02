@@ -88,10 +88,21 @@ export class Game extends Scene {
     let y = 50;
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 6; j++) {
-        this.physics.add
+        const brick = this.physics.add
           .image(x, y, "paddle")
           .setScale(0.015, 0.0125)
           .setTintFill(PRIMARY_COLOR);
+
+        this.physics.add.collider(
+          this.ball,
+          brick,
+          () => {
+            brick.disableBody(true, true);
+            this.ball.setVelocity(-75, -400);
+          },
+          null,
+          this
+        );
 
         x += 130;
         if (j == 5) {
