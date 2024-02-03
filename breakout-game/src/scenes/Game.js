@@ -47,7 +47,12 @@ export class Game extends Scene {
       .setImmovable();
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer) => {
-      this.paddle.setX(pointer.x);
+      if (
+        pointer.x - this.paddle.displayWidth / 2 >= 0 &&
+        pointer.x <= this.canvasWidth - this.paddle.displayWidth / 2
+      ) {
+        this.paddle.setX(pointer.x);
+      }
     });
   }
 
