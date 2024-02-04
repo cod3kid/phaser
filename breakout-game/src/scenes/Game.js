@@ -120,7 +120,11 @@ export class Game extends Scene {
 
   update() {
     if (this.isAttachedToPad) {
-      this.ball.setX(this.paddle.x);
+      this.ball.setPosition(this.paddle.x, this.paddle.y - 30).setVelocity(0);
+    }
+
+    if (this.ball.y > this.canvasHeight + 10) {
+      this.isAttachedToPad = true;
     }
   }
 }
