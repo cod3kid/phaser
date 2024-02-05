@@ -80,7 +80,7 @@ export class Game extends Scene {
         if (this.ball.x > this.paddle.x) {
           this.ball.setVelocityX(-10 * (this.ball.x - this.paddle.x));
         } else {
-          this.ball.setVelocityX(-10 * (this.paddle.x - this.ball.x));
+          this.ball.setVelocityX(10 * (this.paddle.x - this.ball.x));
         }
       },
       null,
