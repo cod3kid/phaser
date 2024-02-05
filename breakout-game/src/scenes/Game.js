@@ -12,6 +12,7 @@ export class Game extends Scene {
     this.paddle;
     this.ball;
     this.isAttachedToPad = true;
+    this.brickCount = 36;
   }
 
   init() {
@@ -78,9 +79,9 @@ export class Game extends Scene {
       this.paddle,
       () => {
         if (this.ball.x > this.paddle.x) {
-          this.ball.setVelocityX(-10 * (this.ball.x - this.paddle.x));
+          this.ball.setVelocityX(10 * (this.ball.x - this.paddle.x));
         } else {
-          this.ball.setVelocityX(10 * (this.paddle.x - this.ball.x));
+          this.ball.setVelocityX(-10 * (this.paddle.x - this.ball.x));
         }
       },
       null,
@@ -102,8 +103,14 @@ export class Game extends Scene {
           this.ball,
           brick,
           () => {
-            brick.disableBody(true, true);
+            brick.destroy();
             this.ball.setVelocity(-75, -400);
+            this.brickCount--;
+
+            if (this.brickCount === 0) {
+              this.createBricks();
+              this.isAttachedToPad = true;
+            }
           },
           null,
           this
