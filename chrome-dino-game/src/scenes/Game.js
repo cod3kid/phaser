@@ -5,5 +5,7 @@ export class Game extends Scene {
     super("Game");
   }
 
-  create() {}
+  create() {
+    console.log("Game scene has started");
+  }
 }
