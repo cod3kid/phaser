@@ -6,7 +6,9 @@ import { Preloader } from "./scenes/Preloader";
 const config = {
   type: Phaser.AUTO,
   width: 1024,
-  height: 768,
+  height: 340,
+  pixelArt: true,
+  transparent: true,
   parent: "game-container",
   backgroundColor: "#eaeaea",
   scale: {
