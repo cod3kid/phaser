@@ -14,6 +14,11 @@ export class Game extends Scene {
   }
 
   create() {
+    this.createGround();
+    this.createDino();
+  }
+
+  createGround() {
     this.add
       .tileSprite(0, this.canvasWidth, this.canvasHeight, 26, "ground")
       .setOrigin(0, 1);
