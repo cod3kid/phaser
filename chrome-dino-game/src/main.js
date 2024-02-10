@@ -20,7 +20,7 @@ const config = {
     arcade: {
       gravity: {
         x: 0,
-        y: 0,
+        y: 3000,
       },
     },
   },

@@ -6,6 +6,8 @@ export class Game extends Scene {
 
     this.canvasWidth;
     this.canvasHeight;
+
+    this.dino;
   }
 
   init() {
@@ -25,6 +27,14 @@ export class Game extends Scene {
   }
 
   createDino() {
-    this.physics.add.sprite(0, this.canvasHeight, "dinoIdle").setOrigin(0, 1);
+    this.dino = this.physics.add
+      .sprite(0, this.canvasHeight, "dinoIdle")
+      .setOrigin(0, 1);
+
+    this.dino.setCollideWorldBounds(true);
+
+    this.input.keyboard.on("keydown-SPACE", () => {
+      this.dino.setVelocityY(-1000);
+    });
   }
 }
