@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import Dino from "../classes/Dino";
 
 export class Game extends Scene {
   constructor() {
@@ -27,14 +28,8 @@ export class Game extends Scene {
   }
 
   createDino() {
-    this.dino = this.physics.add
-      .sprite(0, this.canvasHeight, "dinoIdle")
-      .setOrigin(0, 1);
-
-    this.dino.setCollideWorldBounds(true);
-
-    this.input.keyboard.on("keydown-SPACE", () => {
-      this.dino.setVelocityY(-1000);
-    });
+    this.dino = new Dino({ scene: this, x: 0, y: this.canvasHeight })
+      .setOrigin(0, 1)
+      .setCollideWorldBounds(true);
   }
 }
