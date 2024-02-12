@@ -9,6 +9,7 @@ export class Game extends Scene {
     this.canvasHeight;
 
     this.dino;
+    this.isGameStarted = false;
   }
 
   init() {

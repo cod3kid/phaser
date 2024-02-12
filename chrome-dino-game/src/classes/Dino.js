@@ -14,8 +14,13 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
   }
 
   registerJumpListener() {
-    this.scene.input.keyboard.on("keydown-SPACE", () => {
-      this.setVelocityY(-1000);
-    });
+    this.scene.input.keyboard
+      .once("keydown-SPACE", () => {
+        this.scene.isGameStarted = true;
+        console.log("Game Started");
+      })
+      .on("keydown-SPACE", () => {
+        this.setVelocityY(-1000);
+      });
   }
 }
