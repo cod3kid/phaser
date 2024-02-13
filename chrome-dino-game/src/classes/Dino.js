@@ -12,7 +12,9 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
 
     this.scene.events.on("update", () => {
       const spaceDownOnce = Phaser.Input.Keyboard.JustDown(this.cursors.space);
-      if (spaceDownOnce) {
+      const isOnGround = this.body.onFloor();
+
+      if (spaceDownOnce && isOnGround) {
         this.setVelocityY(-1600);
       }
     });
