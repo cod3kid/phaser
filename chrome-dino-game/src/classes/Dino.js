@@ -5,8 +5,17 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.add.existing(this);
     this.scene.add.existing(this);
 
+    this.cursors = this.scene.input.keyboard.createCursorKeys();
+
     this.init();
     this.registerJumpListener();
+
+    this.scene.events.on("update", () => {
+      const spaceDownOnce = Phaser.Input.Keyboard.JustDown(this.cursors.space);
+      if (spaceDownOnce) {
+        this.setVelocityY(-1600);
+      }
+    });
   }
 
   init() {
@@ -14,13 +23,9 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
   }
 
   registerJumpListener() {
-    this.scene.input.keyboard
-      .once("keydown-SPACE", () => {
-        this.scene.isGameStarted = true;
-        console.log("Game Started");
-      })
-      .on("keydown-SPACE", () => {
-        this.setVelocityY(-1000);
-      });
+    this.scene.input.keyboard.once("keydown-SPACE", () => {
+      this.scene.isGameStarted = true;
+      console.log("Game Started");
+    });
   }
 }
