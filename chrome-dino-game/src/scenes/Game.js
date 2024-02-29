@@ -9,6 +9,7 @@ export class Game extends Scene {
     this.canvasHeight;
 
     this.dino;
+    this.ground;
     this.isGameStarted = false;
   }
 
@@ -23,8 +24,8 @@ export class Game extends Scene {
   }
 
   createGround() {
-    this.add
-      .tileSprite(0, this.canvasWidth, this.canvasHeight, 26, "ground")
+    this.ground = this.add
+      .tileSprite(0, this.canvasHeight, this.canvasWidth, 26, "ground")
       .setOrigin(0, 1);
   }
 
@@ -32,5 +33,12 @@ export class Game extends Scene {
     this.dino = new Dino({ scene: this, x: 0, y: this.canvasHeight })
       .setOrigin(0, 1)
       .setCollideWorldBounds(true);
+  }
+
+  update() {
+    if (this.isGameStarted) {
+      this.ground.x -= 1;
+      this.ground.width += 4;
+    }
   }
 }
