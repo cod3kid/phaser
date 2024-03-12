@@ -9,6 +9,7 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
 
     this.init();
     this.registerJumpListener();
+    this.registerRunAnimation();
 
     this.scene.events.on("update", () => {
       const spaceDownOnce = Phaser.Input.Keyboard.JustDown(this.cursors.space);
@@ -28,6 +29,15 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
     this.scene.input.keyboard.once("keydown-SPACE", () => {
       this.scene.isGameStarted = true;
       console.log("Game Started");
+    });
+  }
+
+  registerRunAnimation() {
+    this.anims.create({
+      key: "dinoRun",
+      frames: this.anims.generateFrameNames("dinoRun"),
+      frameRate: 10,
+      repeat: -1,
     });
   }
 }
