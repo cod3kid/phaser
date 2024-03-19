@@ -35,7 +35,7 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
   registerRunAnimation() {
     this.anims.create({
       key: "dinoRun",
-      frames: this.anims.generateFrameNames("dinoRun"),
+      frames: this.anims.generateFrameNames("dinoRun", { start: 2, end: 3 }),
       frameRate: 10,
       repeat: -1,
     });
