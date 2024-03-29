@@ -10,6 +10,7 @@ export class Game extends Scene {
 
     this.dino;
     this.ground;
+    this.obstacleSpawnTime = 0;
     this.isGameStarted = false;
   }
 
@@ -35,7 +36,7 @@ export class Game extends Scene {
       .setCollideWorldBounds(true);
   }
 
-  update() {
+  update(time, delta) {
     if (this.isGameStarted) {
       this.ground.x -= 1;
       this.ground.width += 4;
@@ -46,6 +47,13 @@ export class Game extends Scene {
         this.dino.anims.stop();
         this.dino.setTexture("dinoRun", 0);
       }
+    }
+
+    this.obstacleSpawnTime += delta;
+
+    if (this.obstacleSpawnTime >= 1500) {
+      this.obstacleSpawnTime = 0;
+      console.log("Spawning...");
     }
   }
 }
