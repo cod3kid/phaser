@@ -39,7 +39,13 @@ export class Game extends Scene {
     if (this.isGameStarted) {
       this.ground.x -= 1;
       this.ground.width += 4;
-      this.dino.play("dinoRun", true);
+
+      if (this.dino.body.deltaAbsY() > 0) {
+        this.dino.play("dinoRun", true);
+      } else {
+        this.dino.anims.stop();
+        this.dino.setTexture("dinoRun", 0);
+      }
     }
   }
 }

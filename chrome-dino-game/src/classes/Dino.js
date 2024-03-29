@@ -2,6 +2,7 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
   constructor({ scene, x, y }) {
     super(scene, x, y, "dinoIdle");
 
+    this.scene = scene;
     this.scene.physics.add.existing(this);
     this.scene.add.existing(this);
 
@@ -28,7 +29,6 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
   registerJumpListener() {
     this.scene.input.keyboard.once("keydown-SPACE", () => {
       this.scene.isGameStarted = true;
-      console.log("Game Started");
     });
   }
 
