@@ -10,6 +10,7 @@ export class Game extends Scene {
 
     this.dino;
     this.ground;
+    this.obstaclesGroup;
     this.obstacleSpawnTime = 0;
     this.isGameStarted = false;
   }
@@ -22,6 +23,7 @@ export class Game extends Scene {
   create() {
     this.createGround();
     this.createDino();
+    this.obstaclesGroup = this.add.group();
   }
 
   createGround() {
@@ -34,6 +36,15 @@ export class Game extends Scene {
     this.dino = new Dino({ scene: this, x: 0, y: this.canvasHeight })
       .setOrigin(0, 1)
       .setCollideWorldBounds(true);
+  }
+
+  spawnObstacle() {
+    const randomObstacle = "obstacle" + (Math.floor(Math.random() * 6) + 1);
+    const distance = Phaser.Math.Between(600, 900);
+    // Creates an object and also adds it into the group
+    this.obstaclesGroup
+      .create(distance, this.canvasHeight, randomObstacle)
+      .setOrigin(0.5, 1);
   }
 
   update(time, delta) {
@@ -53,7 +64,7 @@ export class Game extends Scene {
 
     if (this.obstacleSpawnTime >= 1500) {
       this.obstacleSpawnTime = 0;
-      console.log("Spawning...");
+      this.spawnObstacle();
     }
   }
 }
