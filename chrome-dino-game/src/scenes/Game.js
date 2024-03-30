@@ -58,13 +58,19 @@ export class Game extends Scene {
         this.dino.anims.stop();
         this.dino.setTexture("dinoRun", 0);
       }
-    }
 
-    this.obstacleSpawnTime += delta;
+      // Spawn Obstacle
+      this.obstacleSpawnTime += delta;
 
-    if (this.obstacleSpawnTime >= 1500) {
-      this.obstacleSpawnTime = 0;
-      this.spawnObstacle();
+      if (this.obstacleSpawnTime >= 1500) {
+        this.obstacleSpawnTime = 0;
+        this.spawnObstacle();
+      }
+
+      Phaser.Actions.IncX(this.obstaclesGroup.getChildren(), -10);
+      // this.obstaclesGroup.children.getArray().forEach((child) => {
+      //   child.x -= 10;
+      // });
     }
   }
 }
