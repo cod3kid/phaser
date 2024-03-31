@@ -67,10 +67,17 @@ export class Game extends Scene {
         this.spawnObstacle();
       }
 
-      Phaser.Actions.IncX(this.obstaclesGroup.getChildren(), -10);
-      // this.obstaclesGroup.children.getArray().forEach((child) => {
-      //   child.x -= 10;
-      // });
+      // Pro code
+      // Phaser.Actions.IncX(this.obstaclesGroup.getChildren(), -10);
+
+      // Newbie code
+      this.obstaclesGroup.children.getArray().forEach((obstacle) => {
+        obstacle.x -= 10;
+
+        if (obstacle.x < 0) {
+          obstacle.destroy();
+        }
+      });
     }
   }
 }
