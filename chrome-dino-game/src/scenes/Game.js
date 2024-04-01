@@ -49,8 +49,7 @@ export class Game extends Scene {
 
   update(time, delta) {
     if (this.isGameStarted) {
-      this.ground.x -= 1;
-      this.ground.width += 4;
+      this.ground.tilePositionX += 10;
 
       if (this.dino.body.deltaAbsY() > 0) {
         this.dino.play("dinoRun", true);
