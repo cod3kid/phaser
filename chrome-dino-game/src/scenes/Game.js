@@ -21,9 +21,12 @@ export class Game extends Scene {
   }
 
   create() {
+    this.obstaclesGroup = this.physics.add.group();
+    this.physics.world.setBoundsCollision(false, false, true, true);
+
     this.createGround();
     this.createDino();
-    this.obstaclesGroup = this.add.group();
+    this.createObstaclesCollider();
   }
 
   createGround() {
@@ -38,13 +41,21 @@ export class Game extends Scene {
       .setCollideWorldBounds(true);
   }
 
+  createObstaclesCollider() {
+    this.physics.add.collider(this.obstaclesGroup, this.dino, () => {
+      this.physics.pause();
+      this.isGameStarted = false;
+    });
+  }
+
   spawnObstacle() {
     const randomObstacle = "obstacle" + (Math.floor(Math.random() * 6) + 1);
     const distance = Phaser.Math.Between(600, 900);
     // Creates an object and also adds it into the group
     this.obstaclesGroup
       .create(distance, this.canvasHeight, randomObstacle)
-      .setOrigin(0.5, 1);
+      .setOrigin(0.5, 1)
+      .setCollideWorldBounds(true);
   }
 
   update(time, delta) {
