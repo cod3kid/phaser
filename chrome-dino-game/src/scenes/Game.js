@@ -27,6 +27,7 @@ export class Game extends Scene {
     this.createGround();
     this.createDino();
     this.createObstaclesCollider();
+    this.createGameOverContainer();
   }
 
   createGround() {
@@ -46,7 +47,20 @@ export class Game extends Scene {
       this.physics.pause();
       this.isGameStarted = false;
       this.dino.handleGameOver();
+
+      this.gameOverText.setVisible(true);
+      this.restartIcon.setVisible(true);
     });
+  }
+
+  createGameOverContainer() {
+    this.gameOverText = this.add
+      .image(this.canvasWidth / 2, this.canvasHeight / 2 - 100, "gameOver")
+      .setVisible(false);
+
+    this.restartIcon = this.add
+      .image(this.canvasWidth / 2, this.canvasHeight / 2 - 40, "restart")
+      .setVisible(false);
   }
 
   spawnObstacle() {
