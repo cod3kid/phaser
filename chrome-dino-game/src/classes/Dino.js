@@ -40,4 +40,9 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
       repeat: -1,
     });
   }
+
+  handleGameOver() {
+    this.anims.pause();
+    this.setTexture("dinoHurt");
+  }
 }

@@ -45,6 +45,7 @@ export class Game extends Scene {
     this.physics.add.collider(this.obstaclesGroup, this.dino, () => {
       this.physics.pause();
       this.isGameStarted = false;
+      this.dino.handleGameOver();
     });
   }
 
