@@ -60,7 +60,17 @@ export class Game extends Scene {
 
     this.restartIcon = this.add
       .image(this.canvasWidth / 2, this.canvasHeight / 2 - 40, "restart")
-      .setVisible(false);
+      .setVisible(false)
+      .setInteractive()
+      .on(Phaser.Input.Events.POINTER_DOWN, () => {
+        this.isGameStarted = true;
+        this.gameOverText.setVisible(false);
+        this.restartIcon.setVisible(false);
+        this.physics.resume();
+        this.obstaclesGroup.getChildren().forEach((child) => {
+          child?.destroy();
+        });
+      });
   }
 
   spawnObstacle() {
