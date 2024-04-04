@@ -67,9 +67,13 @@ export class Game extends Scene {
         this.gameOverText.setVisible(false);
         this.restartIcon.setVisible(false);
         this.physics.resume();
-        this.obstaclesGroup.getChildren().forEach((child) => {
-          child?.destroy();
-        });
+        // My code
+        // this.obstaclesGroup.getChildren().forEach((child) => {
+        //   child?.destroy();
+        // });
+
+        // Pro code
+        this.obstaclesGroup.clear(true, true);
       });
   }
 
