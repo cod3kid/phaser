@@ -11,13 +11,21 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
     this.init();
     this.registerJumpListener();
     this.registerRunAnimation();
+    this.registerDownAnimation();
 
     this.scene.events.on("update", () => {
       const spaceDownOnce = Phaser.Input.Keyboard.JustDown(this.cursors.space);
+      const downArrowDownOnce = Phaser.Input.Keyboard.JustDown(
+        this.cursors.down
+      );
       const isOnGround = this.body.onFloor();
 
       if (spaceDownOnce && isOnGround) {
         this.setVelocityY(-1600);
+      }
+
+      if (downArrowDownOnce && isOnGround) {
+        this.body.setSize(30, 30);
       }
     });
   }
@@ -39,6 +47,21 @@ export default class Dino extends Phaser.Physics.Arcade.Sprite {
       frameRate: 10,
       repeat: -1,
     });
+  }
+
+  registerDownAnimation() {
+    this.anims.create({
+      key: "dinoDown",
+      frames: this.anims.generateFrameNames("dinoDown"),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
+
+  playDinoAnimation() {
+    this.body.height <= 58
+      ? this.play("dinoDown", true)
+      : this.play("dinoRun", true);
   }
 
   handleGameOver() {

@@ -2,6 +2,7 @@ import { Scene } from "phaser";
 import ground from "../assets/ground.png";
 import dinoIdle from "../assets/dino-idle-2.png";
 import dinoRun from "../assets/dino-run.png";
+import dinoDown from "../assets/dino-down-2.png";
 import dinoHurt from "../assets/dino-hurt.png";
 import gameOver from "../assets/game-over.png";
 import restart from "../assets/restart.png";
@@ -35,6 +36,11 @@ export class Preloader extends Scene {
 
     this.load.spritesheet("dinoRun", dinoRun, {
       frameWidth: 88,
+      frameHeight: 94,
+    });
+
+    this.load.spritesheet("dinoDown", dinoDown, {
+      frameWidth: 118,
       frameHeight: 94,
     });
   }
