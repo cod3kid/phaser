@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import { textStyle } from "../utils/constant";
 
 export class Game extends Scene {
   constructor() {
@@ -8,7 +9,10 @@ export class Game extends Scene {
     this.cols = 8;
     this.size = 40;
     this.board = [];
-    this.food = { x: 0, y: 0 };
+    this.food = {
+      x: Phaser.Math.Between(0, this.cols - 1),
+      y: Phaser.Math.Between(0, this.rows - 1),
+    };
   }
 
   create() {
@@ -33,8 +37,24 @@ export class Game extends Scene {
       for (let j = 0; j < this.cols; j++) {
         if (this.board[i][j] == 1) {
           this.createSquare(baseXY, i, j, false);
+          this.add
+            .text(
+              baseXY.x + i * this.size + this.size / 2,
+              baseXY.y + j * this.size + this.size / 2,
+              0,
+              textStyle
+            )
+            .setOrigin(0.5);
         } else if (this.board[i][j] == -1) {
           this.createSquare(baseXY, i, j, true);
+          this.add
+            .text(
+              baseXY.x + i * this.size + this.size / 2,
+              baseXY.y + j * this.size + this.size / 2,
+              -1,
+              textStyle
+            )
+            .setOrigin(0.5);
         }
       }
     }
