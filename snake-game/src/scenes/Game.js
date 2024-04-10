@@ -13,6 +13,11 @@ export class Game extends Scene {
       x: Phaser.Math.Between(0, this.cols - 1),
       y: Phaser.Math.Between(0, this.rows - 1),
     };
+
+    this.snakeHead = {
+      x: Phaser.Math.Between(0, this.cols - 1),
+      y: Phaser.Math.Between(0, this.rows - 1),
+    };
   }
 
   create() {
@@ -27,40 +32,30 @@ export class Game extends Scene {
     for (let i = 0; i < this.rows; i++) {
       this.board[i] = [];
       for (let j = 0; j < this.cols; j++) {
-        this.board[i][j] = 1;
+        this.board[i][j] = 0;
       }
     }
 
     this.board[this.food.x][this.food.y] = -1;
+    this.board[this.snakeHead.x][this.snakeHead.y] = 1;
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        if (this.board[i][j] == 1) {
-          this.createSquare(baseXY, i, j, false);
-          this.add
-            .text(
-              baseXY.x + i * this.size + this.size / 2,
-              baseXY.y + j * this.size + this.size / 2,
-              0,
-              textStyle
-            )
-            .setOrigin(0.5);
+        if (this.board[i][j] == 0) {
+          this.createSquare(baseXY, i, j, 0xffffff);
+          this.createText(baseXY, i, j, 0);
         } else if (this.board[i][j] == -1) {
-          this.createSquare(baseXY, i, j, true);
-          this.add
-            .text(
-              baseXY.x + i * this.size + this.size / 2,
-              baseXY.y + j * this.size + this.size / 2,
-              -1,
-              textStyle
-            )
-            .setOrigin(0.5);
+          this.createSquare(baseXY, i, j, 0xff0000);
+          this.createText(baseXY, i, j, -1);
+        } else {
+          this.createSquare(baseXY, i, j, 0xffff00);
+          this.createText(baseXY, i, j, 1);
         }
       }
     }
   }
 
-  createSquare(baseXY, i, j, isFill) {
+  createSquare(baseXY, i, j, fillColor) {
     this.gridGraphics.strokeRect(
       baseXY.x + i * this.size,
       baseXY.y + j * this.size,
@@ -68,8 +63,8 @@ export class Game extends Scene {
       this.size
     );
 
-    if (isFill) {
-      this.gridGraphics.fillStyle(0xff0000);
+    if (fillColor) {
+      this.gridGraphics.fillStyle(fillColor);
       this.gridGraphics.fillRect(
         baseXY.x + i * this.size,
         baseXY.y + j * this.size,
@@ -77,5 +72,16 @@ export class Game extends Scene {
         this.size
       );
     }
+  }
+
+  createText(baseXY, i, j, value) {
+    this.add
+      .text(
+        baseXY.x + i * this.size + this.size / 2,
+        baseXY.y + j * this.size + this.size / 2,
+        value,
+        textStyle
+      )
+      .setOrigin(0.5);
   }
 }
