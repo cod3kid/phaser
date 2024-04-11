@@ -69,21 +69,38 @@ export default class Snake {
      * The Math.wrap call allow the snake to wrap around the screen, so when
      * it goes off any of the sides it re-appears on the other.
      */
+    console.log("meow", this.headPosition.x);
     switch (this.heading) {
       case DIRECTIONS.LEFT:
-        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x - 1, 0, 40);
+        this.headPosition.x = Phaser.Math.Wrap(
+          this.headPosition.x - 1,
+          0,
+          this.scene.scale.width / 16
+        );
         break;
 
       case DIRECTIONS.RIGHT:
-        this.headPosition.x = Phaser.Math.Wrap(this.headPosition.x + 1, 0, 40);
+        this.headPosition.x = Phaser.Math.Wrap(
+          this.headPosition.x + 1,
+          0,
+          this.scene.scale.width / 16
+        );
         break;
 
       case DIRECTIONS.UP:
-        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y - 1, 0, 30);
+        this.headPosition.y = Phaser.Math.Wrap(
+          this.headPosition.y - 1,
+          0,
+          this.scene.scale.height / 16
+        );
         break;
 
       case DIRECTIONS.DOWN:
-        this.headPosition.y = Phaser.Math.Wrap(this.headPosition.y + 1, 0, 30);
+        this.headPosition.y = Phaser.Math.Wrap(
+          this.headPosition.y + 1,
+          0,
+          this.scene.scale.height / 16
+        );
         break;
     }
 
