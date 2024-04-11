@@ -14,6 +14,10 @@ const config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [Preloader, Game],
+  fps: {
+    target: 5, // Set the target frame rate (e.g., 30 fps)
+    forceSetTimeOut: true, // Ensures consistent timing across different environments
+  },
 };
 
 export default new Phaser.Game(config);

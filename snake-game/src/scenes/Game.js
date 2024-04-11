@@ -18,14 +18,19 @@ export class Game extends Scene {
       x: Phaser.Math.Between(0, this.cols - 1),
       y: Phaser.Math.Between(0, this.rows - 1),
     };
+
+    this.direction = { x: 0, y: 0 };
+    this.isGameOver = false;
   }
 
   create() {
     this.createBoard();
+    this.createSnakeDirectionListener();
   }
 
   createBoard() {
     const baseXY = { x: 200, y: 200 };
+    this.gridGraphics?.destroy();
     this.gridGraphics = this.add.graphics();
     this.gridGraphics.lineStyle(2, 0x000000, 1);
 
@@ -36,8 +41,14 @@ export class Game extends Scene {
       }
     }
 
+    this.snakeHead.x += this.direction.x;
+    this.snakeHead.y += this.direction.y;
+
     this.board[this.food.x][this.food.y] = -1;
-    this.board[this.snakeHead.x][this.snakeHead.y] = 1;
+
+    if (!this.isGameOver) {
+      this.board[this.snakeHead.x][this.snakeHead.y] = 1;
+    }
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
@@ -53,6 +64,16 @@ export class Game extends Scene {
         }
       }
     }
+  }
+
+  createSnakeDirectionListener() {
+    this.input.keyboard.on("keydown", (event) => {
+      const { key } = event;
+      console.log(key);
+      if (key === "ArrowLeft") {
+        this.direction = { x: -1, y: 0 };
+      }
+    });
   }
 
   createSquare(baseXY, i, j, fillColor) {
@@ -83,5 +104,17 @@ export class Game extends Scene {
         textStyle
       )
       .setOrigin(0.5);
+  }
+
+  update() {
+    if (
+      this.snakeHead.x < 0 ||
+      this.snakeHead.x > this.cols - 1 ||
+      this.snakeHead.y < 0 ||
+      this.snakeHead.y > this.rows - 1
+    ) {
+      this.isGameOver = true;
+    }
+    this.createBoard();
   }
 }
