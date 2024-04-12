@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import Snake from "../classes/Snake";
+import Food from "../classes/Food";
 
 export class Game extends Scene {
   constructor() {
@@ -11,6 +12,7 @@ export class Game extends Scene {
 
   create() {
     this.snake = new Snake({ scene: this, x: 8, y: 8 });
+    this.food = new Food({ scene: this, x: 4, y: 4 });
 
     //  Create our keyboard controls
     this.cursors = this.input.keyboard.createCursorKeys();

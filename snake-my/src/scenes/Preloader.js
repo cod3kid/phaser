@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-
+import food from "../assets/food.png";
 export class Preloader extends Scene {
   constructor() {
     super("Preloader");
@@ -7,7 +7,9 @@ export class Preloader extends Scene {
 
   init() {}
 
-  preload() {}
+  preload() {
+    this.load.image("food", food);
+  }
 
   create() {
     this.scene.start("Game");
