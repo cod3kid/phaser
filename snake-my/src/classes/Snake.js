@@ -135,6 +135,10 @@ export default class Snake {
       this.grow();
       this.scene.food.eat();
 
+      if (this.speed > 20 && this.scene.food.total % 5 === 0) {
+        this.speed -= 5;
+      }
+
       return true;
     } else {
       return false;
