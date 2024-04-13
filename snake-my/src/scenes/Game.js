@@ -40,6 +40,8 @@ export class Game extends Scene {
       this.snake.faceDown();
     }
 
-    this.snake.update(time);
+    if (this.snake.update(time)) {
+      this.snake.collideWithFood();
+    }
   }
 }

@@ -4,6 +4,7 @@ export default class Snake {
   constructor({ scene, x, y }) {
     this.scene = scene;
     this.headPosition = new Phaser.Geom.Point(x, y);
+    this.tail = new Phaser.Geom.Point(x, y);
 
     this.body = scene.add.group();
     this.head = this.scene.add
@@ -69,7 +70,6 @@ export default class Snake {
      * The Math.wrap call allow the snake to wrap around the screen, so when
      * it goes off any of the sides it re-appears on the other.
      */
-    console.log("meow", this.headPosition.x);
     switch (this.heading) {
       case DIRECTIONS.LEFT:
         this.headPosition.x = Phaser.Math.Wrap(
@@ -118,5 +118,26 @@ export default class Snake {
     this.moveTime = time + this.speed;
 
     return true;
+  }
+
+  grow() {
+    const snakeBody = this.scene.add
+      .rectangle(this.tail.x, this.tail.y, 20, 20, 0xff0000)
+      .setOrigin(0);
+    this.body.add(snakeBody);
+  }
+
+  collideWithFood() {
+    if (
+      this.head.x === this.scene.food.x &&
+      this.head.y === this.scene.food.y
+    ) {
+      this.grow();
+      this.scene.food.eat();
+
+      return true;
+    } else {
+      return false;
+    }
   }
 }
