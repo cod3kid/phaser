@@ -62,7 +62,7 @@ export default class Snake {
     }
   }
 
-  move(time) {
+  move() {
     /**
      * Based on the heading property (which is the direction the pgroup pressed)
      * we update the headPosition value accordingly.
@@ -113,11 +113,6 @@ export default class Snake {
       this.headPosition.y * 16,
       1
     );
-
-    //  Update the timer ready for the next movement
-    this.moveTime = time + this.speed;
-
-    return true;
   }
 
   grow() {

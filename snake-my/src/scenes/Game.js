@@ -8,6 +8,7 @@ export class Game extends Scene {
 
     this.snake;
     this.cursors;
+    this.totalDelta = 0;
   }
 
   create() {
@@ -19,6 +20,7 @@ export class Game extends Scene {
   }
 
   update(time, delta) {
+    this.totalDelta += delta;
     if (!this.snake.alive) {
       return;
     }
@@ -40,7 +42,9 @@ export class Game extends Scene {
       this.snake.faceDown();
     }
 
-    if (this.snake.update(time)) {
+    if (this.totalDelta >= 100) {
+      this.snake.move();
+      this.totalDelta = 0;
       this.snake.collideWithFood();
     }
   }
