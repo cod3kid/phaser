@@ -5,5 +5,7 @@ export class Game extends Scene {
     super("Game");
   }
 
-  create() {}
+  create() {
+    this.add.image(200, 200, "penguin", "penguin_die03.png");
+  }
 }
