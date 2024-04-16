@@ -6,6 +6,10 @@ export class Game extends Scene {
   }
 
   create() {
-    this.add.image(200, 200, "penguin", "penguin_die03.png");
+    const map = this.make.tilemap({ key: "tilemap" });
+    const tileset = map.addTilesetImage("ice-world", "tiles");
+    map.createLayer("ground", tileset);
+
+    this.cameras.main.scrollY = 280;
   }
 }
